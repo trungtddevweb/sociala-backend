@@ -29,9 +29,7 @@ export const login = async (req, res, next) => {
     if (!checkPassword) {
       return next(createError(400, "Email or password incorrect!"));
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {
-      expiresIn: "3 days",
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY);
     const { password, ...other } = user._doc;
     res
       .cookie("access_token", token, {
