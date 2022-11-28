@@ -3,7 +3,11 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    name: { type: String, required: [true, "Không thể để trống!"] },
+    name: {
+      type: String,
+      required: [true, "Không thể để trống!"],
+      maxLength: 32,
+    },
     email: {
       type: String,
       required: [true, "Không thể để trống!"],
@@ -12,7 +16,7 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: [true, "Không thể để trống!"],
-      minLength: 6,
+      min: 6,
     },
   },
   { timestamps: true }
