@@ -12,6 +12,7 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "Không thể để trống!"],
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
