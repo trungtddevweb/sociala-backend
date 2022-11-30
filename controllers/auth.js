@@ -8,7 +8,7 @@ export const register = async (req, res, next) => {
   try {
     const user = await User.findOne({ email });
     if (user) {
-      return next(createError(403, "Email has been taken by another user!"));
+      return next(createError(403, "Email đã được sử dụng!"));
     }
     const salt = bcrypt.genSaltSync(10);
     const hassPassword = bcrypt.hashSync(req.body.password, salt);
@@ -25,14 +25,14 @@ export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return next(createError(404, "User not found!"));
+      return next(createError(404, "Không tìm thấy người dùng!"));
     }
     const checkPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
     if (!checkPassword) {
-      return next(createError(400, "Email or password incorrect!"));
+      return next(createError(400, "Sai tài khoản hoặc mật khẩu!"));
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_KEY);
     const { password, ...other } = user._doc;
