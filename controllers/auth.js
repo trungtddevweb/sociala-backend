@@ -4,7 +4,12 @@ import jwt from "jsonwebtoken";
 import { createError } from "../utils/error.js";
 
 export const register = async (req, res, next) => {
+  const { email } = req.body;
   try {
+    const user = await User.findOne({ email });
+    if (user) {
+      return next(createError(403, "Email has been taken by another user!"));
+    }
     const salt = bcrypt.genSaltSync(10);
     const hassPassword = bcrypt.hashSync(req.body.password, salt);
     const newUser = await User({ ...req.body, password: hassPassword });
