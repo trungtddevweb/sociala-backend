@@ -1,17 +1,17 @@
 import User from "../models/User.js";
 
-export const getUser = (req, res, next) => {
+export const getUser = async (req, res, next) => {
   try {
-    const user = User.findOne(req.params.id);
+    const user = await User.findOne(req.params.id);
     res.status(200).json(user);
   } catch (error) {
     next(error);
   }
 };
 
-export const getAllUser = (req, res, next) => {
+export const getAllUser = async (req, res, next) => {
   try {
-    const users = User.find();
+    const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
     next(error);
