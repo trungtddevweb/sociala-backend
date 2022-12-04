@@ -17,3 +17,5 @@ export const getAllUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUser = async (req, res, next) => {};
